@@ -48,7 +48,7 @@
  <table>
  <tr>
   <th><br>Gallery ID<br><br></th> 
-  <th><br>GName<br><br></th> 
+  <th><br>Gallery Name<br><br></th> 
   <th><br>Location<br><br></th>
   <br><br>
  </tr>

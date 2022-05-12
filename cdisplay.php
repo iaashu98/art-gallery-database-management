@@ -47,13 +47,13 @@
   <h1><center><font style="border:9px solid grey">DISPLAY CONTENTS /\/ CUSTOMER TABLE</font></center></h1>
  <table>
  <tr>
-  <th><br>Cust ID<br><br></th> 
-  <th><br>Gallery ID<br><br></th> 
-  <th><br>First Name<br><br></th>
-  <th><br>Last Name<br><br></th>
+  <th><br>Cust ID<br><br></th>  
+  <th><br>Customer Name<br><br></th>
   <th><br>Date of Birth<br><br></th>
   <th><br>Address<br><br></th>
   <th><br>Phone<br><br></th>
+  <th><br>Gallery<br><br></th>
+  <th><br>Artwork<br><br></th>
 
   <br><br>
  </tr>
@@ -64,7 +64,7 @@ $con = mysqli_connect("localhost", "root", "", "art_gallery");
    die("Connection failed: " . $con->connect_error);
   } 
 
-  $sql = "SELECT * from CUSTOMER";
+  $sql = "SELECT Cu.custid, title, g.gname, fname, lname, dob, address, Co.PHONE from CUSTOMER Cu JOIN contacts Co on Cu.custid=Co.CUSTID join artwork aw on aw.artid=Cu.artworkid join gallery g on g.gid=Cu.gid";
   mysqli_query($con,$sql);
 
   if ($result = mysqli_query($con,"$sql"))
@@ -72,7 +72,7 @@ $con = mysqli_connect("localhost", "root", "", "art_gallery");
    
    while($row = $result->fetch_assoc())
     {
-    echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["gid"]. "</td><td>" . $row["fname"]. "</td><td>" . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td><td>" . $row["phone"]. "</td></tr>";
+    echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["fname"] . '&nbsp' . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td><td>" . $row["PHONE"]. "</td><td>" . $row["gname"]."</td><td>" . $row["title"]. "</td></tr>";
     }
     echo "</table>";
     }

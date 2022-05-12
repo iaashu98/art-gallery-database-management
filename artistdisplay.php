@@ -48,13 +48,12 @@
  <table>
  <tr>
   <th><br>Artist ID<br><br></th> 
-  <th><br>G ID<br><br></th> 
-  <th><br>Cust ID<br><br></th>
   <th><br>E ID<br><br></th>
-  <th><br>FName<br><br></th>
-  <th><br>LName<br><br></th>
+  <th><br>Artist Name<br><br></th>
   <th><br>BirthPlace<br><br></th>
   <th><br>Style<br><br></th>
+  <th><br>Gallery<br><br></th> 
+  <th><br>Customer Name<br><br></th>
   <br><br>
  </tr>
   <?php
@@ -64,7 +63,7 @@ $con = mysqli_connect("localhost", "root", "", "art_gallery");
    die("Connection failed: " . $con->connect_error);
   } 
 
-  $sql = "SELECT * from Artist";
+  $sql = "SELECT artistid, g.gname, cu.fname, cu.lname, eid, fname1, lname1, birthplace, style from Artist ar join customer cu on ar.custid=cu.custid join gallery g on g.gid=ar.gid";
   mysqli_query($con,$sql);
 
   if ($result = mysqli_query($con,$sql))
@@ -72,7 +71,7 @@ $con = mysqli_connect("localhost", "root", "", "art_gallery");
    
    while($row = $result->fetch_assoc())
     {
-    echo "<tr><td>" . $row["artistid"]. "</td><td>" . $row["gid"]. "</td><td>" . $row["custid"]. "</td><td>" . $row["eid"]. "</td><td>" . $row["fname1"]. "</td><td>" . $row["lname1"]. "</td><td>" .$row["birthplace"]. "</td><td><br>" . $row["style"]. "<br></br></td></tr>";
+    echo "<tr><td>" . $row["artistid"]. "</td><td>" . $row["eid"]. "</td><td>" . $row["fname1"]. '&nbsp' . $row["lname1"]. "</td><td>" .$row["birthplace"]. "</td><td><br>" . $row["style"]. "<br></br></td><td>" . $row["gname"]. "</td><td>" . $row["fname"]. '&nbsp' . $row["lname"]. "</td></tr>";
     }
     echo "</table>";
     }

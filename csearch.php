@@ -125,15 +125,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$n1=$_POST['custid'];
 	echo "<b><br>Entered Customer ID is $n1<br></b>";
 	
-	$sql="SELECT * from Customer where custid='$n1'";
+	$sql="SELECT* from CUSTOMER where custid='$n1'";
 
 				$result = $con->query($sql);
 
 			if ($result->num_rows > 0) {
                 echo "<b><br>Search Successful<br><br></b>";
-		    echo "<br><br><br><br><table><tr><th>Cust ID</th><th>G_ID</th><th>FName</th><th>LName</th><th>DOB</th><th>Address</th><th><br>Phone No.<br></br></th></tr>";
+		    echo "<br><br><br><br><table><tr><th>Cust ID</th><th>G_ID</th><th>Customer Name</th><th>DOB</th><th>Address</th></tr>";
 		   		    while($row = $result->fetch_assoc()) {
-		       echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["gid"]. "</td><td>" . $row["fname"]. "</td><td>" . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td><td><br>". $row["phone"]. "<br></br></td></tr>";
+		       echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["gid"]. "</td><td>" . $row["fname"]. '&nbsp' . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td></tr>";
 		    }
 		    echo "</table>";
 		} else {
