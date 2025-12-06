@@ -41,6 +41,7 @@ This project has been updated with comprehensive security improvements:
 - Web server (Apache/Nginx) or PHP built-in server
 
 ### Installation
+📖 **For detailed installation instructions for Windows, macOS, and Linux, see [SETUP.md](SETUP.md)**
 
 1. **Clone the repository**
    ```bash
@@ -72,8 +73,6 @@ This project has been updated with comprehensive security improvements:
    ```
    
    Open your browser and navigate to: `http://localhost:8000/FrontEnd.html`
-
-📖 **For detailed installation instructions for Windows, macOS, and Linux, see [SETUP.md](SETUP.md)**
 
 ## 📁 Project Structure
 
