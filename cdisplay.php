@@ -58,29 +58,21 @@
   <br><br>
  </tr>
   <?php
-$con = mysqli_connect("localhost", "root", "", "art_gallery");
-
-  if ($con->connect_error) {
-   die("Connection failed: " . $con->connect_error);
-  } 
+// Include database connection
+require_once 'connection.php';
 
   $sql = "SELECT Cu.custid, title, g.gname, fname, lname, dob, address, Co.PHONE from CUSTOMER Cu JOIN contacts Co on Cu.custid=Co.CUSTID join artwork aw on aw.artid=Cu.artworkid join gallery g on g.gid=Cu.gid";
-  mysqli_query($con,$sql);
 
-  if ($result = mysqli_query($con,"$sql"))
-   {
-   
-   while($row = $result->fetch_assoc())
-    {
-    echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["fname"] . '&nbsp' . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td><td>" . $row["PHONE"]. "</td><td>" . $row["gname"]."</td><td>" . $row["title"]. "</td></tr>";
+  if ($result = mysqli_query($conn,"$sql")) {
+   while($row = $result->fetch_assoc()) {
+    // Use htmlspecialchars to prevent XSS attacks
+    echo "<tr><td>" . htmlspecialchars($row["custid"]) . "</td><td>" . htmlspecialchars($row["fname"]) . '&nbsp' . htmlspecialchars($row["lname"]) . "</td><td>" . htmlspecialchars($row["dob"]) . "</td><td>" . htmlspecialchars($row["address"]) . "</td><td>" . htmlspecialchars($row["PHONE"]) . "</td><td>" . htmlspecialchars($row["gname"]) . "</td><td>" . htmlspecialchars($row["title"]) . "</td></tr>";
     }
     echo "</table>";
-    }
-else 
-  { 
-    echo "0 results"; 
-  }
-$con->close();
+    } else { 
+     echo "0 results"; 
+   }
+$conn->close();
 ?>
 </table>
 </body>

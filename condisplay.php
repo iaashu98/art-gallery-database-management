@@ -52,28 +52,20 @@
   <br><br>
  </tr>
   <?php
-$con = mysqli_connect("localhost", "root", "", "art_gallery");
-
-  if ($con->connect_error) {
-   die("Connection failed: " . $con->connect_error);
-  } 
+// Include database connection
+require_once 'connection.php';
 
   $sql = "SELECT * from contacts";
-  mysqli_query($con,$sql);
-  if ($result = mysqli_query($con, $sql))
-   {
-   
-   while($row = $result->fetch_assoc())
-    {
-    echo "<tr><td>" . $row["CUSTID"]. "</td><td>". $row["PHONE"]. "<br></br></td></tr>";
+  if ($result = mysqli_query($conn, $sql)) {
+   while($row = $result->fetch_assoc()) {
+    // Use htmlspecialchars to prevent XSS attacks
+    echo "<tr><td>" . htmlspecialchars($row["CUSTID"]) . "</td><td>". htmlspecialchars($row["PHONE"]) . "<br></br></td></tr>";
     }
     echo "</table>";
-    }
-else 
-  { 
-    echo "0 results"; 
-  }
-$con->close();
+    } else { 
+     echo "0 results"; 
+   }
+$conn->close();
 ?>
 </table>
 </body>

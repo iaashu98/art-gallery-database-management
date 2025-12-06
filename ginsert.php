@@ -1,27 +1,59 @@
- <?php
-    if(isset($_POST['G_ID']) && isset($_POST['GNAME']) && isset($_POST['LOCATION'])):
-    $gid = $_POST['G_ID'];
-    $gname = $_POST['GNAME'];
-    $location = $_POST['LOCATION'];
+<?php
+/**
+ * Gallery Insert Script
+ * Handles insertion of new gallery records into the database
+ */
 
-    $link = new mysqli('localhost','root','','art_gallery');
+// Include database connection
+require_once 'connection.php';
 
-    if($link->connect_error)
-        die('connection error: '.$link->connect_error);
+// Check if all required fields are set
+if (isset($_POST['G_ID']) && isset($_POST['gname']) && isset($_POST['location'])) {
+    
+    // Get and sanitize input data
+    $gid = trim($_POST['G_ID']);
+    $gname = trim($_POST['gname']);
+    $location = trim($_POST['location']);
+    
+    // Validate required fields are not empty
+    if (empty($gid) || empty($gname) || empty($location)) {
+        http_response_code(400);
+        echo 'Error: All required fields must be filled';
+        exit;
+    }
+    
+    // Prepare SQL statement with placeholders
+    $sql = "INSERT INTO gallery (gid, gname, location) VALUES (?, ?, ?)";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt === false) {
+        http_response_code(500);
+        echo 'Error preparing statement: ' . $conn->error;
+        exit;
+    }
+    
+    // Bind parameters (s = string)
+    $stmt->bind_param("sss", $gid, $gname, $location);
+    
+    // Execute statement
+    if ($stmt->execute()) {
+        http_response_code(200);
+        echo 'Successfully inserted into Gallery';
+    } else {
+        http_response_code(500);
+        echo 'Unable to insert: ' . $stmt->error;
+    }
+    
+    // Close statement
+    $stmt->close();
+    
+} else {
+    http_response_code(400);
+    echo 'Error: Missing required fields';
+}
 
-    $sql3 = "INSERT INTO GALLERY(gid, gname, location) VALUES('".$gid."', '".$gname."', '".$location."')";
-
-      
-
-    $result = $link->query($sql3); 
-
-    if($result > 0):
-        echo 'Successfully Inserted into GALLERY table.';
-    else:
-        echo 'Unable to post';
-    endif;
-
-    $link->close();
-    die();
-    endif; 
+// Close connection
+$conn->close();
 ?>

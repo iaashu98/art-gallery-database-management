@@ -3,47 +3,15 @@
 <head>
  <title>Stored Customer</title>
  <style>
-  b{
-    font-size: 28px;
-    font-family: 'Arial';
-    padding: 1px;
-    text-align: center;
-}
-  table 
-  {
-   border-collapse: collapse;
-   width: 100%;
-   color: #588c7e;
-   font-family: monospace;
-   font-size: 25px;
-   text-align: left;
-   font-family:"Verdana";
-   font-weight: bold;
-   text-align: center;
-   border-radius: 14px;
-  } 
-  th 
-  {
-   background-color: #54C571;
-   color: snow;
-   border-radius: 32px;
-  }
-  h1{
-    font-family: "Arial";
-    font-size: 50px;
-    border: 9px solid #736AFF;
-    border-radius: 17px;
-     color: black;
-  }
-  td{
-    padding: 12px;
-    border-radius: 14px;
-  }
-  tr:nth-child(even) {background-color: #f2f2f2; 
-    border-radius: 14px;}
+  b{font-size:28px;font-family:'Arial';padding:1px;text-align:center;}
+  table{border-collapse:collapse;width:100%;color:#588c7e;font-family:monospace;font-size:25px;text-align:left;font-family:"Verdana";font-weight:bold;text-align:center;border-radius:14px;} 
+  th{background-color:#54C571;color:snow;border-radius:32px;}
+  h1{font-family:"Arial";font-size:50px;border:9px solid #736AFF;border-radius:17px;color:black;}
+  td{padding:12px;border-radius:14px;}
+  tr:nth-child(even){background-color:#f2f2f2;border-radius:14px;}
  </style>
 </head>
-<body style="background-color: #EBF4FA">
+<body style="background-color:#EBF4FA">
   <h1><center><font style="border:9px solid #736AFF"> STORED PROCEDURE /\/ CUSTOMER TABLE </font></center></h1>
  <table>
  <tr>
@@ -57,31 +25,22 @@
   <br><br>
  </tr>
   <?php
-$con = mysqli_connect("localhost", "root", "", "art_gallery");
-echo " <b><center>Creating Stored Procedure...</center></b>";
+// Include database connection
+require_once 'connection.php';
 
-  if ($con->connect_error) {
-   die("Connection failed: " . $con->connect_error);
-  } 
+echo " <b><center>Calling Stored Procedure...</center></b>";
 
-  $sql = "CREATE PROCEDURE GetAge() SELECT *, year(current_date())-year(dob) as age from CUSTOMER";
-  mysqli_query($con,$sql);
-  echo "<b><center>Procedure  Created Successfully.</center></b>";
-  echo "<b><center>Calling Stored Procedure!!!</center></b>";
-  if ($result = mysqli_query($con,"CALL GetAge()"))
-   {
-   
-   while($row = $result->fetch_assoc())
-    {
-    echo "<tr><td>" . $row["custid"]. "</td><td>" . $row["gid"]. "</td><td>" . $row["fname"]. "</td><td>" . $row["lname"]. "</td><td>" . $row["dob"]. "</td><td>" . $row["address"]. "</td><td>". $row["age"]. "</td></tr>";
+  $sql = "CALL GetAge()";
+  if ($result = mysqli_query($conn,$sql)) {
+   while($row = $result->fetch_assoc()) {
+    // Use htmlspecialchars to prevent XSS attacks
+    echo "<tr><td>" . htmlspecialchars($row["custid"]) . "</td><td>" . htmlspecialchars($row["gid"]) . "</td><td>" . htmlspecialchars($row["fname"]) . "</td><td>" . htmlspecialchars($row["lname"]) . "</td><td>" . htmlspecialchars($row["dob"]) . "</td><td>" . htmlspecialchars($row["address"]) . "</td><td>". htmlspecialchars($row["age"]) . "</td></tr>";
     }
     echo "</table>";
-    }
-else 
-  { 
-    echo "0 results"; 
-  }
-$con->close();
+    } else { 
+     echo "0 results"; 
+   }
+$conn->close();
 ?>
 </table>
 </body>

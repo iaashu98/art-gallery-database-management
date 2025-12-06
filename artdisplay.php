@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <title>Exhibition Display</title>
+ <title>Artwork Display</title>
  <style>
   table 
   {
@@ -49,31 +49,23 @@
   <br><br>
  </tr>
  <?php
-$conn = mysqli_connect("localhost", "root", "", "art_gallery");
-
-  if ($conn->connect_error) {
-   die("Connection failed: " . $conn->connect_error);
-  } 
+// Include database connection
+require_once 'connection.php';
 
   $sql = "SELECT artid, title, year, type_of_art, price, eid, gid, artistid FROM artwork";
   $result = $conn->query($sql);
-  if ($result->num_rows > 0)
-   {
-   
-   while($row = $result->fetch_assoc())
-    {
-    echo "<tr><td>" . $row["artid"]. "</td><td>" . $row["title"]. "</td><td>" . $row["year"]. "</td><td>" . $row["type_of_art"]. "</td><td>" . $row["price"]. "</td><td>" . $row["eid"]. "</td><td>" . $row["gid"]. "</td><td>"
-    . $row["artistid"]. "</td></tr>";
+  
+  if ($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()) {
+    // Use htmlspecialchars to prevent XSS attacks
+    echo "<tr><td>" . htmlspecialchars($row["artid"]) . "</td><td>" . htmlspecialchars($row["title"]) . "</td><td>" . htmlspecialchars($row["year"]) . "</td><td>" . htmlspecialchars($row["type_of_art"]) . "</td><td>" . htmlspecialchars($row["price"]) . "</td><td>" . htmlspecialchars($row["eid"]) . "</td><td>" . htmlspecialchars($row["gid"]) . "</td><td>" . htmlspecialchars($row["artistid"]) . "</td></tr>";
     }
     echo "</table>";
-   
-    }
-else 
-  { 
-    echo "0 results"; 
-  }
+   } else { 
+     echo "0 results"; 
+   }
 $conn->close();
 ?>
-</table>
+ </table>
 </body>
 </html>

@@ -1,145 +1,153 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>
-		ART GALLERY DATABASE
-	</title>
+	<title>ART GALLERY DATABASE</title>
+	<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Aclonica'>
+	<style>
+		h2 {
+			padding-top: 0px;
+			border-radius: 5px;
+		}
+
+		body {
+			background-color: lavenderblush;
+			background: url("./Images/Main-background.jpg") no-repeat;
+			background-size: cover;
+		}
+
+		ul {
+			margin: 3pc;
+			padding: 0.1px;
+			list-style: none;
+		}
+
+		ul li {
+			float: left;
+			width: 265px;
+			height: 49px;
+			background-color: rgb(129, 7, 159);
+			opacity: .8;
+			line-height: 40px;
+			text-align: center;
+			font-size: 25px;
+			margin-right: 7px;
+			margin-left: 5px;
+			font-family: verdana;
+			font-weight: bold;
+			font-size: 35px;
+			margin-bottom: 4px;
+		}
+
+		ul li a {
+			text-align: center;
+			color: white;
+			display: block;
+			padding-bottom: 7.5px;
+		}
+
+		ul li a:hover {
+			background-color: rgb(36, 202, 111);
+			color: black;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		ul li ul li {
+			display: none;
+		}
+
+		ul li:hover ul li {
+			display: block;
+		}
+
+		.example1 {
+			height: 50px;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.example1 h3 {
+			font-size: 3em;
+			color: #F7F9F9;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			margin-top: 0px;
+			line-height: 50px;
+			text-align: center;
+			-moz-transform: translateX(100%);
+			-webkit-transform: translateX(100%);
+			transform: translateX(100%);
+			-moz-animation: example1 15s linear infinite;
+			-webkit-animation: example1 15s linear infinite;
+			animation: example1 11s linear infinite;
+		}
+
+		@-moz-keyframes example1 {
+			0% {
+				-moz-transform: translateX(100%);
+			}
+			100% {
+				-moz-transform: translateX(-100%);
+			}
+		}
+
+		@-webkit-keyframes example1 {
+			0% {
+				-webkit-transform: translateX(100%);
+			}
+			100% {
+				-webkit-transform: translateX(-100%);
+			}
+		}
+
+		@keyframes example1 {
+			0% {
+				-moz-transform: translateX(100%);
+				-webkit-transform: translateX(100%);
+				transform: translateX(100%);
+			}
+			100% {
+				-moz-transform: translateX(100%);
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+			}
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		.column {
+			float: left;
+			width: 33.33%;
+			padding: 1px;
+		}
+
+		.row::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	</style>
 </head>
 <body>
 	<h1>
-		<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Aclonica'>
-<center> 
-    <h2><font style="border: 13px groove powderblue;  border-radius: 7px; padding: 5px 24px;" color=floralwhite face="Aclonica"; > ART GALLERY MANAGEMENT SYSTEM </font></h2>
-</center>
-<style> 
-h2{
-	padding-top:  0px;
-	border-radius: 5px;
-}
-
-body{background-color: lavenderblush; 
-	background: url("./Images/Main-background.jpg") no-repeat;
-background-size:cover;
-}
-ul{
-	margin:3pc;
-	padding:0.1px;
-	list-style:none;
-}
-ul li{
-	float:left;
-	width:265px;
-	height:49px;
-	background-color:rgb(129, 7, 159);
-	opacity:.8;
-	line-height:40px;
-	text-align:center;
-	font-size:25px;
-	margin-right:7px;
-	margin-left: 5px;
-	font-family: verdana;
-	font-weight: bold;
-	font-size: 35px;
-	margin-bottom: 4px;
-}
-ul li a{
-	text-align: center;
-	color:white;
-	display:block;
-	padding-bottom: 7.5px;
-}
-ul li a:hover{
-	background-color:rgb(36, 202, 111);
-	color:black;
-    font-family:Arial, Helvetica, sans-serif;
-}
-ul li ul li{
-	display:none;
-}
-ul li:hover ul li{
-	display:block;
-
-}
-</style><br>
-<div class="example1">
-	<h3 style="font-family: Verdana; font-size: 35px; color:deeppink;">This is an ART GALLERY PROJECT!</h3>
-	
-</div>
-<ul style="max-width: 40px; text-decoration: none;">
-	<li><a href="gallery.html" >GALLERY</a></li>
-	<li><a href="exhibition.html">EXHIBITION</a></li>
-	<li><a href="artwork.html">ARTWORK</a></li>
-	<li><a href="customer.html">CUSTOMER</a></li>
-	<li><a href="artist.html">ARTIST</a></li>
-	<li><a href="contacts.html">CONTACTS</a></li>
-</ul>
-<br>
-</h1>	
-<style>
-.example1 {
- height: 50px;	
- overflow: hidden;
- position: relative;
-}
-.example1 h3 {
- font-size: 3em;
- color: #F7F9F9;
- position: absolute;
- width: 100%;
- height: 100%;
- margin-top: 0px;
- line-height: 50px;
- text-align: center;
- 
- -moz-transform:translateX(100%);
- -webkit-transform:translateX(100%);	
- transform:translateX(100%);
-	
- -moz-animation: example1 15s linear infinite;
- -webkit-animation: example1 15s linear infinite;
- animation: example1 11s linear infinite;
-}
-
-@-moz-keyframes example1 {
- 0%{ -moz-transform: translateX(100%); }
- 100% { -moz-transform: translateX(-100%); }
-}
-@-webkit-keyframes example1 {
- 0%   { -webkit-transform: translateX(100%); }
- 100% { -webkit-transform: translateX(-100%); }
-}
-@keyframes example1 {
- 0%   { 
- -moz-transform: translateX(100%); 
- -webkit-transform: translateX(100%);
- transform: translateX(100%); 		
- }
- 100% { 
- -moz-transform: translateX(100%); 
- -webkit-transform: translateX(-100%);
- transform: translateX(-100%); 
- }
-}
-</style>
-
-<style>
-* { 
-    box-sizing: border-box;
-}
-
-.column {
-    float: left;
-    width: 33.33%;
-    padding: 1px;
-}
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-</style>
-</head>
-<body>
+		<center>
+			<h2><font style="border: 13px groove powderblue; border-radius: 7px; padding: 5px 24px;" color=floralwhite face="Aclonica"> ART GALLERY MANAGEMENT SYSTEM </font></h2>
+		</center>
+	</h1>
+	<br>
+	<div class="example1">
+		<h3 style="font-family: Verdana; font-size: 35px; color:deeppink;">This is an ART GALLERY PROJECT!</h3>
+	</div>
+	<ul style="max-width: 40px; text-decoration: none;">
+		<li><a href="gallery.html">GALLERY</a></li>
+		<li><a href="exhibition.html">EXHIBITION</a></li>
+		<li><a href="artwork.html">ARTWORK</a></li>
+		<li><a href="customer.html">CUSTOMER</a></li>
+		<li><a href="artist.html">ARTIST</a></li>
+		<li><a href="contacts.html">CONTACTS</a></li>
+	</ul>
+	<br>
 </body>
 </html>

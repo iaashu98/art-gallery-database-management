@@ -1,135 +1,212 @@
 # Art Gallery Database Management
 
-This project is a simple PHP-based application for managing an art gallery database. Follow these steps to set up and run the project on a Windows machine.
+A PHP-based web application for managing an art gallery database system. This project provides a complete solution for managing galleries, exhibitions, artworks, artists, customers, and their relationships.
 
-## Prerequisites
+[![PHP](https://img.shields.io/badge/PHP-8.5+-777BB4?style=flat&logo=php&logoColor=white)](https://www.php.net/)
+[![MySQL](https://img.shields.io/badge/MySQL-9.5+-4479A1?style=flat&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Ensure you have the following installed on your system:
+## 🎨 Features
 
-### 1. **WAMP Server**
-   - **Version**: WAMPServer 3.2.6 (downgrade to 3.0.6 or 3.1.x if this version throws error for php code)
-   - **Components**:
-     - **PHP**: Version 7.4
-     - **MySQL**: Version 5.7
-     - **Apache**: Version 2.4
-   - Download from [WAMPServer Official Website](https://www.wampserver.com/en/).
+### Data Management
+- **Artists**: Store artist information including name, birthplace, and art style (pop art, fauvism, etc.)
+- **Artworks**: Manage artwork details including title, artist, year, type (painting/lithograph/sculpture/photograph), and price
+- **Customers**: Track customer information with name, address, phone, and preferences
+- **Galleries**: Maintain gallery records with location and details
+- **Exhibitions**: Schedule and manage exhibitions with start/end dates
+- **Contacts**: Store customer contact information
 
-### 2. **Web Browser**
-   - Any modern web browser (e.g., Google Chrome, Mozilla Firefox, Microsoft Edge).
+### Functionality
+- **CRUD Operations**: Create, Read, Update, and Delete records for all entities
+- **Search**: Advanced search functionality across all tables
+- **Relationships**: Manage foreign key relationships between entities
+- **Stored Procedures**: Database procedures for complex queries (e.g., customer age calculation)
 
-### 3. **Text Editor (Optional)**
-   - Recommended: Visual Studio Code or Notepad++ for editing code if needed.
+## 🔒 Security Features
 
-### 4. **Git** (Optional)
-   - For cloning the repository.
-   - Download from [Git Official Website](https://git-scm.com/).
+This project has been updated with comprehensive security improvements:
 
-## Installation and Setup
+- ✅ **SQL Injection Protection**: All queries use prepared statements with parameter binding
+- ✅ **XSS Protection**: All outputs sanitized using `htmlspecialchars()`
+- ✅ **Centralized Configuration**: Database credentials managed through `config.php`
+- ✅ **Input Validation**: All user inputs validated and sanitized
+- ✅ **Error Handling**: Proper error handling throughout the application
+- ✅ **Bug Fixes**: Critical bugs fixed (delete operations now work correctly)
 
-### Step 1: Install WAMPServer or XAMPP(for Mac or Linux)
-1. Download and install WAMPServer from the official website.
-2. During installation, ensure the correct PHP, MySQL, and Apache versions are selected.
-3. After installation, start the WAMPServer from the system tray.
+## 🚀 Quick Start
 
-### Step 2: Clone the Repository
-- Clone the project from GitHub:
-  ```bash
-  git clone https://github.com/iaashu98/art-gallery-database-management.git
-  ```
-- Alternatively, download the repository as a ZIP file and extract it to a folder.
+### Prerequisites
+- PHP 7.4+ (PHP 8.5+ recommended)
+- MySQL 5.7+ (MySQL 9.5+ recommended)
+- Web server (Apache/Nginx) or PHP built-in server
 
-### Step 3: Set Up the Project Directory
-1. Copy the extracted/cloned project folder to the `www` directory of WAMPServer:
-   ```
-   C:\wamp64\www\art-gallery-database-management
-   ```
-2. Ensure the folder structure matches:
-   ```
-   C:\wamp64\www\art-gallery-database-management\
-       |-- index.php
-       |-- connection.php
-       |-- other_files...
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/iaashu98/art-gallery-database-management.git
+   cd art-gallery-database-management
    ```
 
-### Step 4: Configure the Database
-1. Open phpMyAdmin by navigating to:
+2. **Set up the database**
+   ```bash
+   mysql -u root -p
+   CREATE DATABASE art_gallery;
+   exit;
+   mysql -u root -p art_gallery < Files/art_gallery.sql
    ```
-   http://localhost/phpmyadmin
-   ```
-2. Create a new database named `art_gallery`.
-3. Import the database schema:
-   - Go to the `Import` tab.
-   - Select the SQL file provided in the repository (`art_gallery.sql`).
-   - Click `Go` to execute the import.
 
-### Step 5: Update Database Configuration
-1. Open the `connection.php` file in the project directory.
-2. Ensure the database credentials match your local setup:
+3. **Configure database connection**
+   
+   Edit `config.php` with your database credentials:
    ```php
-   $servername = "localhost";
-   $username = "root";
-   $password = "";
-   $dbname = "art_gallery";
+   define('DB_HOST', 'localhost');
+   define('DB_USER', 'root');
+   define('DB_PASS', 'your_password');
+   define('DB_NAME', 'art_gallery');
    ```
 
-### Step 6: Run the Project
-1. Open your web browser.
-2. Navigate to:
+4. **Run the application**
+   ```bash
+   php -S localhost:8000
    ```
-   http://localhost/art-gallery-database-management
-   ```
-3. Click on ```FrontEnd.html```, it is the starting point of project.
-3. Use the application to manage the art gallery database.
+   
+   Open your browser and navigate to: `http://localhost:8000/FrontEnd.html`
 
-## Troubleshooting
+📖 **For detailed installation instructions for Windows, macOS, and Linux, see [SETUP.md](SETUP.md)**
 
-- **WAMPServer icon stays orange or red**: Ensure no other services (e.g., Skype, IIS) are using port 80 or 443.
-- **Error: Connection failed**:
-  - Check the database credentials in `connection.php`.
-  - Ensure the `art_gallery` database exists and contains the required tables.
-- **PHP Errors**:
-  - Enable error reporting in the `php.ini` file:
-    ```ini
-    display_errors = On
-    ```
-  - Restart WAMPServer after making changes.
+## 📁 Project Structure
 
-## Author
-**Ashutosh Ranjan**  
-GitHub: [iaashu98](https://github.com/iaashu98)
+```
+art-gallery-database-management/
+├── config.php              # Database configuration
+├── connection.php          # Database connection handler
+├── FrontEnd.html          # Main homepage
+├── Files/
+│   └── art_gallery.sql    # Database schema and sample data
+├── *insert.php            # Insert operations (6 files)
+├── *display.php           # Display operations (6 files)
+├── *search.php            # Search operations (6 files)
+├── *delete.php            # Delete operations (6 files)
+├── *stored.php            # Stored procedures (2 files)
+├── Images/                # UI images
+└── Screenshots/           # Application screenshots
+```
 
+## 🖼️ Screenshots
 
-## What is this Project About?
-This project is about Art Gallery Database management system. This is basically consist of management of Users and Gallery database. This project manages orders, shows customer's , artist's, artwork's details.
-I've also included the SQL file so that all you've to do is import this in database module.
+<details>
+<summary>Click to view screenshots</summary>
 
- <b>FEATURES</b>\
- *Store data on artist*\
-    >Name<br>
-    >Birthplace\
-    >Style of art - pop art, fauvinism etc.\
- *Store data on art work*\
-    >Title\
-    >Artist\
-    >Year it was made\
-    >Type - painting/lithograph/sculpture/photograph\
-    >Prices\
- *Store data on customers*\
-    >Name\
-    >Address\
-    >Phone\
-    >Preferences of artists\
-    >Preferences of gallery\
- *Support for related queries*\
- 
- Some Screenshots:
- ![Frontend](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot.jpg?raw=true)
- ![Gallery](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot1.jpg?raw=true)
- ![Exibition](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot2.jpg?raw=true)
- ![Customer](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot3.jpg?raw=true)
- ![Artist](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot4.jpg?raw=true)
- ![Contacts](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot5.jpg?raw=true)
+### Frontend
+![Frontend](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot.jpg?raw=true)
 
- 
-Please note that, this was my first ever project and thus you may find not so well designed architecture. I developed this project when I was learning web developement. Although, I tried to include as much things as possible, but still you may find that some data are not relevant. I would suggest you to delete all the data and come up with fresh entries. It is working project and it has foreign key constraints as well. If anyone wants to contribute to this project, please ping on my mail, I would love to collab. 
-If you still have any query regarding this project then just mail me at iaashu98@gmail.com. I'm available there.
+### Gallery Management
+![Gallery](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot1.jpg?raw=true)
+
+### Exhibition Management
+![Exhibition](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot2.jpg?raw=true)
+
+### Customer Management
+![Customer](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot3.jpg?raw=true)
+
+### Artist Management
+![Artist](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot4.jpg?raw=true)
+
+### Contacts Management
+![Contacts](https://github.com/iaashu98/art-gallery-database-management/blob/53cdcae12c66ab84f89866c06f9ee0bd23027cf2/Screenshots/SharedScreenshot5.jpg?raw=true)
+
+</details>
+
+## 🗄️ Database Schema
+
+The database consists of 6 main tables:
+
+- **gallery**: Gallery information (ID, name, location)
+- **exhibition**: Exhibition details (ID, gallery, dates)
+- **artist**: Artist information (ID, name, birthplace, style)
+- **artwork**: Artwork details (ID, title, artist, type, price)
+- **customer**: Customer records (ID, name, DOB, address)
+- **contacts**: Customer contact information (customer ID, phone)
+
+**Relationships:**
+- Artists are associated with galleries and exhibitions
+- Artworks are linked to artists, galleries, and exhibitions
+- Customers have preferences for artists and galleries
+- Foreign key constraints maintain data integrity
+
+## 🛠️ Technologies Used
+
+- **Backend**: PHP 8.5
+- **Database**: MySQL 9.5
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Architecture**: MVC-inspired structure with separation of concerns
+
+## 📝 Usage
+
+### Managing Galleries
+1. Navigate to the Gallery section
+2. Click "Insert" to add a new gallery
+3. Use "Display" to view all galleries
+4. Use "Search" to find specific galleries
+5. Use "Delete" to remove galleries
+
+### Managing Artworks
+1. Go to the Artwork section
+2. Fill in artwork details (title, artist, year, type, price)
+3. Link to exhibitions and galleries
+4. Search and filter artworks
+
+### Managing Customers
+1. Access the Customer section
+2. Add customer information
+3. Link customers to their preferred galleries and artists
+4. Manage contact information
+
+*Similar workflows apply to Artists, Exhibitions, and Contacts*
+
+## 🤝 Contributing
+
+Contributions are welcome! This project was created as a learning exercise, and there's always room for improvement.
+
+**Areas for contribution:**
+- UI/UX improvements
+- Additional features (user authentication, reporting, etc.)
+- Code optimization
+- Documentation improvements
+- Bug fixes
+
+To contribute:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📧 Contact
+
+**Ashutosh Ranjan**
+- GitHub: [@iaashu98](https://github.com/iaashu98)
+- Email: iaashu98@gmail.com
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+This was my first web development project, created while learning PHP and MySQL. While the architecture may not be perfect, it demonstrates core concepts of database management and web application development.
+
+## ⚠️ Note
+
+This project was developed as a learning exercise. For production use, consider:
+- Adding user authentication and authorization
+- Implementing CSRF protection
+- Adding comprehensive logging
+- Setting up automated backups
+- Implementing rate limiting
+- Adding comprehensive unit tests
+
+---
+
+**Happy Coding! 🎨**

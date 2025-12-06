@@ -1,31 +1,67 @@
- <?php
-    if(isset($_POST['E_ID']) && isset($_POST['G_ID']) && isset($_POST['artid']) && isset($_POST['artistid']) && isset($_POST['title']) && isset($_POST['type_of_art']) && isset($_POST['year']) && isset($_POST['price'])):
+<?php
+/**
+ * Artwork Insert Script
+ * Handles insertion of new artwork records into the database
+ */
 
-    $eid = $_POST['E_ID'];
-    $gid = $_POST['G_ID'];
-    $artid = $_POST['artid'];
-    $artistid = $_POST['artistid'];
-    $title = $_POST['title'];
-    $type_of_art = $_POST['type_of_art'];
-    $year = $_POST['year'];
-    $price = $_POST['price'];
+// Include database connection
+require_once 'connection.php';
 
-    $link = new mysqli('localhost','root','','art_gallery');
-
-    if($link->connect_error)
-        die('connection error: '.$link->connect_error);
-
-    $sql3 = "INSERT INTO artwork(artid, title, type_of_art, price, eid, gid, artistid, year) VALUES('".$artid."', '".$title."', '".$type_of_art."', '".$price."', '".$eid."', '".$gid."', '".$artistid."', '".$year."')";
-
-    $result = $link->query($sql3); 
-
-    if($result > 0):
+// Check if all required fields are set
+if (isset($_POST['E_ID']) && isset($_POST['G_ID']) && isset($_POST['artid']) && 
+    isset($_POST['artistid']) && isset($_POST['title']) && isset($_POST['type_of_art']) && 
+    isset($_POST['year']) && isset($_POST['price'])) {
+    
+    // Get and sanitize input data
+    $eid = trim($_POST['E_ID']);
+    $gid = trim($_POST['G_ID']);
+    $artid = trim($_POST['artid']);
+    $artistid = trim($_POST['artistid']);
+    $title = trim($_POST['title']);
+    $type_of_art = trim($_POST['type_of_art']);
+    $year = trim($_POST['year']);
+    $price = trim($_POST['price']);
+    
+    // Validate required fields are not empty
+    if (empty($artid) || empty($title) || empty($eid) || empty($gid) || empty($artistid)) {
+        http_response_code(400);
+        echo 'Error: All required fields must be filled';
+        exit;
+    }
+    
+    // Prepare SQL statement with placeholders
+    $sql = "INSERT INTO artwork (artid, title, type_of_art, price, eid, gid, artistid, year) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    // Prepare statement
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt === false) {
+        http_response_code(500);
+        echo 'Error preparing statement: ' . $conn->error;
+        exit;
+    }
+    
+    // Bind parameters (s = string)
+    $stmt->bind_param("ssssssss", $artid, $title, $type_of_art, $price, $eid, $gid, $artistid, $year);
+    
+    // Execute statement
+    if ($stmt->execute()) {
+        http_response_code(200);
         echo 'Successfully inserted into Artwork';
-    else:
-        echo 'Unable to post';
-    endif;
+    } else {
+        http_response_code(500);
+        echo 'Unable to insert: ' . $stmt->error;
+    }
+    
+    // Close statement
+    $stmt->close();
+    
+} else {
+    http_response_code(400);
+    echo 'Error: Missing required fields';
+}
 
-    $link->close();
-    die();
-    endif; 
+// Close connection
+$conn->close();
 ?>
